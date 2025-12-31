@@ -1,14 +1,39 @@
+       codex/plan-flutter-app-structure-and-state-management-zey9lz
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import 'package:flutter/material.dart';
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+ codex/plan-flutter-app-structure-and-state-management-orinbg
+
+ codex/plan-flutter-app-structure-and-state-management-cpcdu8
+       main
+        main
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+        main
+
 import '../../../domain/models/work_entry.dart';
 import '../../entries/providers/work_entry_providers.dart';
 import '../providers/selected_date_provider.dart';
+        codex/plan-flutter-app-structure-and-state-management-zey9lz
 import 'work_hour_dialog.dart';
 
+ 
+       codex/plan-flutter-app-structure-and-state-management-u9eotl
+import 'work_hour_dialog.dart';
+
+ 
+       codex/plan-flutter-app-structure-and-state-management-orinbg
+import 'work_hour_dialog.dart';
+
+        main
+
+        main
+        main
 class OverviewPage extends ConsumerWidget {
   const OverviewPage({super.key});
 
@@ -40,6 +65,7 @@ class OverviewPage extends ConsumerWidget {
       ),
       body: entriesAsync.when(
         data: (entries) {
+        codex/plan-flutter-app-structure-and-state-management-zey9lz
           final monthEntries = entries
               .where(
                 (entry) =>
@@ -60,11 +86,14 @@ class OverviewPage extends ConsumerWidget {
             (sum, entry) => sum + entry.overtimeHours,
           );
 
+ 
+          main
           final filtered = entries
               .where((entry) => WorkEntry.isSameDay(entry.date, selectedDate))
               .toList()
             ..sort((a, b) => a.startTime.compareTo(b.startTime));
 
+       codex/plan-flutter-app-structure-and-state-management-zey9lz
           return Column(
             children: [
               Padding(
@@ -169,6 +198,66 @@ class OverviewPage extends ConsumerWidget {
                       ),
               ),
             ],
+
+          if (filtered.isEmpty) {
+            return const Center(
+              child: Text('No entries for this day'),
+            );
+          }
+
+          return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemBuilder: (context, index) {
+              final entry = filtered[index];
+              final start = localizations.formatTimeOfDay(
+                TimeOfDay.fromDateTime(entry.startTime),
+                alwaysUse24HourFormat: true,
+              );
+              final end = localizations.formatTimeOfDay(
+                TimeOfDay.fromDateTime(entry.endTime),
+                alwaysUse24HourFormat: true,
+              );
+              final total = entry.workedDuration.inMinutes / 60;
+
+              return ListTile(
+                title: Text('$start - $end'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Break: ${entry.breakMinutes} min • Total: ${total.toStringAsFixed(2)} h',
+                    ),
+                    Text(
+                      'Daytime: ${entry.daytimeHours.toStringAsFixed(2)} h • Overtime: ${entry.overtimeHours.toStringAsFixed(2)} h',
+                    ),
+                    if ((entry.note ?? '').isNotEmpty) Text(entry.note!),
+                  ],
+                ),
+                trailing: const Icon(Icons.edit_note_outlined),
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+    codex/plan-flutter-app-structure-and-state-management-orinbg
+        main
+                onTap: () => showDialog<bool>(
+                  context: context,
+                  builder: (_) => WorkHourDialog(
+                    initialDate: selectedDate,
+                    entry: entry,
+                  ),
+                ),
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+
+                onTap: () {
+                  // Placeholder for WorkHourDialog integration (editing from Overview only).
+                },
+         main
+        main
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: 8),
+            itemCount: filtered.length,
+        main
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -176,6 +265,13 @@ class OverviewPage extends ConsumerWidget {
           child: Text('Error loading entries: $error'),
         ),
       ),
+        codex/plan-flutter-app-structure-and-state-management-zey9lz
+
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+       codex/plan-flutter-app-structure-and-state-management-orinbg
+        main
+        main
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         label: const Text('Add entry'),
@@ -186,6 +282,24 @@ class OverviewPage extends ConsumerWidget {
           ),
         ),
       ),
+        codex/plan-flutter-app-structure-and-state-management-zey9lz
+
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+
+
+
+class OverviewPage extends StatelessWidget {
+  const OverviewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Overview - Calendar and logs coming soon'),
+      main
+       main
+        main
+        main
     );
   }
 }
