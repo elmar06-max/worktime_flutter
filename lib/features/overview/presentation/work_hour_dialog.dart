@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/work_entry.dart';
 import '../../entries/providers/work_entry_providers.dart';
+       codex/plan-flutter-app-structure-and-state-management-2hoku7
 import '../../jobs/providers/job_providers.dart';
+
+        main
 
 class WorkHourDialog extends ConsumerStatefulWidget {
   const WorkHourDialog({
@@ -23,7 +26,10 @@ class _WorkHourDialogState extends ConsumerState<WorkHourDialog> {
   late DateTime _selectedDate;
   late TimeOfDay _startTime;
   late TimeOfDay _endTime;
+       codex/plan-flutter-app-structure-and-state-management-2hoku7
   String? _selectedJobId;
+
+         main
   late final TextEditingController _breakController;
   late final TextEditingController _daytimeController;
   late final TextEditingController _overtimeController;
@@ -39,7 +45,10 @@ class _WorkHourDialogState extends ConsumerState<WorkHourDialog> {
         entry != null ? TimeOfDay.fromDateTime(entry.startTime) : const TimeOfDay(hour: 9, minute: 0);
     _endTime =
         entry != null ? TimeOfDay.fromDateTime(entry.endTime) : const TimeOfDay(hour: 17, minute: 0);
+        codex/plan-flutter-app-structure-and-state-management-2hoku7
     _selectedJobId = entry?.jobId;
+
+       main
     _breakController = TextEditingController(
       text: (entry?.breakMinutes ?? 0).toString(),
     );
@@ -134,7 +143,10 @@ class _WorkHourDialogState extends ConsumerState<WorkHourDialog> {
       await repository.save(
         WorkEntry.newEntry(
           date: _selectedDate,
+        codex/plan-flutter-app-structure-and-state-management-2hoku7
           jobId: _selectedJobId,
+
+        main
           startTime: start,
           endTime: end,
           breakMinutes: breakMinutes,
@@ -147,7 +159,10 @@ class _WorkHourDialogState extends ConsumerState<WorkHourDialog> {
       await repository.update(
         widget.entry!.copyWith(
           date: _selectedDate,
+     codex/plan-flutter-app-structure-and-state-management-2hoku7
           jobId: _selectedJobId,
+
+        main
           startTime: start,
           endTime: end,
           breakMinutes: breakMinutes,
@@ -163,8 +178,11 @@ class _WorkHourDialogState extends ConsumerState<WorkHourDialog> {
 
   @override
   Widget build(BuildContext context) {
+      codex/plan-flutter-app-structure-and-state-management-2hoku7
     final jobsAsync = ref.watch(jobsProvider);
 
+
+      main
     return AlertDialog(
       title: Text(widget.entry == null ? 'Add entry' : 'Edit entry'),
       content: SingleChildScrollView(
@@ -173,6 +191,7 @@ class _WorkHourDialogState extends ConsumerState<WorkHourDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+       codex/plan-flutter-app-structure-and-state-management-2hoku7
               jobsAsync.when(
                 data: (jobs) {
                   return DropdownButtonFormField<String?>(
@@ -197,6 +216,8 @@ class _WorkHourDialogState extends ConsumerState<WorkHourDialog> {
                 loading: () => const LinearProgressIndicator(),
                 error: (error, _) => Text('Failed to load jobs: $error'),
               ),
+
+        main
               Row(
                 children: [
                   Expanded(

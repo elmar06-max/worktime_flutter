@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+       codex/plan-flutter-app-structure-and-state-management-2hoku7
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/job.dart';
@@ -74,6 +75,16 @@ class SettingsPage extends ConsumerWidget {
         label: const Text('Add Job'),
         onPressed: () => _addJob(context, ref),
       ),
+
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Settings - Configure jobs and preferences'),
+       main
     );
   }
 }
