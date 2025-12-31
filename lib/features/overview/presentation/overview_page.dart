@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+ codex/plan-flutter-app-structure-and-state-management-orinbg
+
  codex/plan-flutter-app-structure-and-state-management-cpcdu8
+       main
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/work_entry.dart';
 import '../../entries/providers/work_entry_providers.dart';
 import '../providers/selected_date_provider.dart';
+       codex/plan-flutter-app-structure-and-state-management-orinbg
+import 'work_hour_dialog.dart';
+
+        main
 
 class OverviewPage extends ConsumerWidget {
   const OverviewPage({super.key});
@@ -77,9 +84,19 @@ class OverviewPage extends ConsumerWidget {
                   ],
                 ),
                 trailing: const Icon(Icons.edit_note_outlined),
+    codex/plan-flutter-app-structure-and-state-management-orinbg
+                onTap: () => showDialog<bool>(
+                  context: context,
+                  builder: (_) => WorkHourDialog(
+                    initialDate: selectedDate,
+                    entry: entry,
+                  ),
+                ),
+
                 onTap: () {
                   // Placeholder for WorkHourDialog integration (editing from Overview only).
                 },
+         main
               );
             },
             separatorBuilder: (context, index) => const SizedBox(height: 8),
@@ -91,6 +108,18 @@ class OverviewPage extends ConsumerWidget {
           child: Text('Error loading entries: $error'),
         ),
       ),
+       codex/plan-flutter-app-structure-and-state-management-orinbg
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        label: const Text('Add entry'),
+        onPressed: () => showDialog<bool>(
+          context: context,
+          builder: (_) => WorkHourDialog(
+            initialDate: selectedDate,
+          ),
+        ),
+      ),
+
 
 
 class OverviewPage extends StatelessWidget {
@@ -101,6 +130,7 @@ class OverviewPage extends StatelessWidget {
     return const Center(
       child: Text('Overview - Calendar and logs coming soon'),
       main
+       main
     );
   }
 }
