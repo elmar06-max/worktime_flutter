@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+ codex/plan-flutter-app-structure-and-state-management-cpcdu8
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/work_entry.dart';
@@ -90,6 +91,16 @@ class OverviewPage extends ConsumerWidget {
           child: Text('Error loading entries: $error'),
         ),
       ),
+
+
+class OverviewPage extends StatelessWidget {
+  const OverviewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Overview - Calendar and logs coming soon'),
+      main
     );
   }
 }
