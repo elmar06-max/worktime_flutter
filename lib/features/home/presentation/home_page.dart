@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/home_timer_controller.dart';
@@ -108,6 +109,16 @@ class _LastSessionSummary extends StatelessWidget {
         ),
         if ((entry.note ?? '').isNotEmpty) Text(entry.note!),
       ],
+
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Home - Timer coming soon'),
+       main
     );
   }
 }

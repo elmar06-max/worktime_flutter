@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+ codex/plan-flutter-app-structure-and-state-management-orinbg
+
+ codex/plan-flutter-app-structure-and-state-management-cpcdu8
+       main
+        main
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/work_entry.dart';
 import '../../entries/providers/work_entry_providers.dart';
 import '../providers/selected_date_provider.dart';
+       codex/plan-flutter-app-structure-and-state-management-u9eotl
 import 'work_hour_dialog.dart';
 
+ 
+       codex/plan-flutter-app-structure-and-state-management-orinbg
+import 'work_hour_dialog.dart';
+
+        main
+
+        main
 class OverviewPage extends ConsumerWidget {
   const OverviewPage({super.key});
 
@@ -77,6 +92,10 @@ class OverviewPage extends ConsumerWidget {
                   ],
                 ),
                 trailing: const Icon(Icons.edit_note_outlined),
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+    codex/plan-flutter-app-structure-and-state-management-orinbg
+        main
                 onTap: () => showDialog<bool>(
                   context: context,
                   builder: (_) => WorkHourDialog(
@@ -84,6 +103,14 @@ class OverviewPage extends ConsumerWidget {
                     entry: entry,
                   ),
                 ),
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+
+                onTap: () {
+                  // Placeholder for WorkHourDialog integration (editing from Overview only).
+                },
+         main
+        main
               );
             },
             separatorBuilder: (context, index) => const SizedBox(height: 8),
@@ -95,6 +122,10 @@ class OverviewPage extends ConsumerWidget {
           child: Text('Error loading entries: $error'),
         ),
       ),
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+       codex/plan-flutter-app-structure-and-state-management-orinbg
+        main
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         label: const Text('Add entry'),
@@ -105,6 +136,21 @@ class OverviewPage extends ConsumerWidget {
           ),
         ),
       ),
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+
+
+
+
+class OverviewPage extends StatelessWidget {
+  const OverviewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Overview - Calendar and logs coming soon'),
+      main
+       main
+        main
     );
   }
 }
