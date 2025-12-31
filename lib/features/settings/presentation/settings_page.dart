@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+       codex/plan-flutter-app-structure-and-state-management-hl9uva
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/job.dart';
 import '../../../domain/models/pay_settings.dart';
 import '../../jobs/providers/job_providers.dart';
 import '../providers/settings_providers.dart';
+
+       codex/plan-flutter-app-structure-and-state-management-2hoku7
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../domain/models/job.dart';
+import '../../jobs/providers/job_providers.dart';
+       main
 import 'job_dialog.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -35,12 +43,16 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final jobsAsync = ref.watch(jobsProvider);
+     codex/plan-flutter-app-structure-and-state-management-hl9uva
     final paySettingsAsync = ref.watch(paySettingsProvider);
+
+      main
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
       ),
+     codex/plan-flutter-app-structure-and-state-management-hl9uva
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -114,12 +126,45 @@ class SettingsPage extends ConsumerWidget {
             ),
           ),
         ],
+
+      body: jobsAsync.when(
+        data: (jobs) => ListView.separated(
+          padding: const EdgeInsets.all(16),
+          itemCount: jobs.length,
+          itemBuilder: (context, index) {
+            final job = jobs[index];
+            return ListTile(
+              title: Text(job.name),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () => _editJob(context, ref, job),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: () async =>
+                        ref.read(jobRepositoryProvider).delete(job.id),
+                  ),
+                ],
+              ),
+            );
+          },
+          separatorBuilder: (_, __) => const Divider(),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(
+          child: Text('Failed to load jobs: $error'),
+        ),
+       main
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         label: const Text('Add Job'),
         onPressed: () => _addJob(context, ref),
       ),
+      codex/plan-flutter-app-structure-and-state-management-hl9uva
     );
   }
 }
@@ -220,6 +265,18 @@ class _PaySettingsCardState extends ConsumerState<_PaySettingsCard> {
           ),
         ),
       ),
+
+
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Settings - Configure jobs and preferences'),
+       main
+        main
     );
   }
 }

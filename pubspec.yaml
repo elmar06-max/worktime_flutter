@@ -10,16 +10,83 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.5.1
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+        
+        codex/plan-flutter-app-structure-and-state-management-2hoku7
+
+        codex/plan-flutter-app-structure-and-state-management-zey9lz
+         main
+        main
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   table_calendar: ^3.1.0
   uuid: ^4.4.2
 
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+
+        codex/plan-flutter-app-structure-and-state-management-2hoku7
+
+
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+ 
+       codex/plan-flutter-app-structure-and-state-management-orinbg
+
+ codex/plan-flutter-app-structure-and-state-management-cpcdu8
+
+codex/plan-flutter-app-structure-and-state-management-fffrg3
+ main
+       main
+        main
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  uuid: ^4.4.2
+
+        codex/plan-flutter-app-structure-and-state-management-u9eotl
+ 
+        codex/plan-flutter-app-structure-and-state-management-orinbg
+
+ codex/plan-flutter-app-structure-and-state-management-cpcdu8
+
+ main
+
+ main
+         main
+        main
+        main
+        main
+        main
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
   build_runner: ^2.4.11
+
+       codex/plan-flutter-app-structure-and-state-management-2hoku7
+  build_runner: ^2.4.11
+
+       codex/plan-flutter-app-structure-and-state-management-zey9lz
+  build_runner: ^2.4.11
+
+       codex/plan-flutter-app-structure-and-state-management-u9eotl
+  build_runner: ^2.4.11
+
+          codex/plan-flutter-app-structure-and-state-management-orinbg
+  build_runner: ^2.4.11
+
+ codex/plan-flutter-app-structure-and-state-management-cpcdu8
+  build_runner: ^2.4.11
+
+ codex/plan-flutter-app-structure-and-state-management-fffrg3
+  build_runner: ^2.4.11
+  
+ main
+        main
+        main
+        main
+        main
+        main
+        main
 
 flutter:
   uses-material-design: true

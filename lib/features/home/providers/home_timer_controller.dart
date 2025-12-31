@@ -2,11 +2,22 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+      codex/plan-flutter-app-structure-and-state-management-hl9uva
 import '../../../domain/models/job.dart';
 import '../../../domain/models/work_entry.dart';
 import '../../jobs/providers/job_providers.dart';
 import '../../entries/providers/work_entry_providers.dart';
 import '../../settings/providers/settings_providers.dart';
+
+        codex/plan-flutter-app-structure-and-state-management-2hoku7
+import '../../../domain/models/job.dart';
+import '../../../domain/models/work_entry.dart';
+import '../../jobs/providers/job_providers.dart';
+
+import '../../../domain/models/work_entry.dart';
+        main
+import '../../entries/providers/work_entry_providers.dart';
+        main
 
 class HomeTimerState {
   const HomeTimerState({
@@ -61,10 +72,19 @@ class HomeTimerController extends StateNotifier<HomeTimerState> {
     final elapsed = end.difference(state.startTime!);
     final totalHours = elapsed.inMinutes / 60;
 
+       codex/plan-flutter-app-structure-and-state-management-hl9uva
+
+       codex/plan-flutter-app-structure-and-state-management-2hoku7
+       main
     // Grab the first available job (if any) to pre-fill jobId for home-created entries.
     final jobs = await _read(jobsProvider.future).catchError((_) => <Job>[]);
     final selectedJobId = jobs.isNotEmpty ? jobs.first.id : null;
 
+       codex/plan-flutter-app-structure-and-state-management-hl9uva
+
+
+       main
+        main
     final entry = await _read(workEntryRepositoryProvider).save(
       WorkEntry.newEntry(
         date: DateTime(
@@ -77,7 +97,14 @@ class HomeTimerController extends StateNotifier<HomeTimerState> {
         breakMinutes: 0,
         daytimeHours: totalHours,
         overtimeHours: 0,
+      codex/plan-flutter-app-structure-and-state-management-hl9uva
         jobId: selectedJobId,
+
+        codex/plan-flutter-app-structure-and-state-management-2hoku7
+        jobId: selectedJobId,
+
+        main
+        main
         note: null,
       ),
     );
