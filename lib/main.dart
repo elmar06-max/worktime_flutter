@@ -9,6 +9,7 @@ import 'data/hive/work_entry_hive_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Hive.initFlutter();
   Hive.registerAdapter(WorkEntryHiveAdapter());
   await Hive.openBox<WorkEntryHiveModel>(workEntriesBoxName);
