@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/utils/pay_calculator.dart';
+import '../../settings/providers/settings_providers.dart';
+
         codex/plan-flutter-app-structure-and-state-management-2hoku7
 
         codex/plan-flutter-app-structure-and-state-management-zey9lz
@@ -8,6 +14,7 @@ import 'package:flutter/material.dart';
         main
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+        main
 import '../providers/home_timer_controller.dart';
 
 class HomePage extends ConsumerWidget {
@@ -25,6 +32,10 @@ class HomePage extends ConsumerWidget {
     final state = ref.watch(homeTimerProvider);
     final controller = ref.read(homeTimerProvider.notifier);
     final isRunning = state.isRunning;
+      codex/plan-flutter-app-structure-and-state-management-hl9uva
+    final paySettingsAsync = ref.watch(paySettingsProvider);
+
+      main
 
     return Scaffold(
       appBar: AppBar(
@@ -68,10 +79,29 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 8),
+      codex/plan-flutter-app-structure-and-state-management-hl9uva
+            paySettingsAsync.when(
+              data: (settings) {
+                final payText = state.lastEntry == null
+                    ? null
+                    : PayCalculator(settings).totalForEntry(state.lastEntry!).toStringAsFixed(0);
+                return state.lastEntry == null
+                    ? const Text('No session recorded yet.')
+                    : _LastSessionSummary(
+                        entry: state.lastEntry!,
+                        payDisplay: payText,
+                      );
+              },
+              loading: () => const LinearProgressIndicator(),
+              error: (error, _) =>
+                  const Text('Could not load pay settings for pay summary.'),
+            ),
+
             if (state.lastEntry == null)
               const Text('No session recorded yet.')
             else
               _LastSessionSummary(entry: state.lastEntry!),
+      main
             const SizedBox(height: 16),
             const Text(
               'Editing is only available from the Overview screen.',
@@ -86,9 +116,16 @@ class HomePage extends ConsumerWidget {
 }
 
 class _LastSessionSummary extends StatelessWidget {
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+  const _LastSessionSummary({required this.entry, required this.payDisplay});
+
+  final dynamic entry;
+  final String? payDisplay;
+
   const _LastSessionSummary({required this.entry});
 
   final dynamic entry;
+      main
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +150,11 @@ class _LastSessionSummary extends StatelessWidget {
         Text(
           'Daytime: ${entry.daytimeHours.toStringAsFixed(2)} h • Overtime: ${entry.overtimeHours.toStringAsFixed(2)} h',
         ),
+       codex/plan-flutter-app-structure-and-state-management-hl9uva
+        if (payDisplay != null) Text('Pay (ISK): $payDisplay'),
+        if ((entry.note ?? '').isNotEmpty) Text(entry.note!),
+      ],
+
         if ((entry.note ?? '').isNotEmpty) Text(entry.note!),
       ],
         codex/plan-flutter-app-structure-and-state-management-2hoku7
@@ -131,6 +173,7 @@ class HomePage extends StatelessWidget {
        main
        main
         main
+       main
     );
   }
 }

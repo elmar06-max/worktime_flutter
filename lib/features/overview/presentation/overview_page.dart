@@ -1,12 +1,24 @@
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+
        codex/plan-flutter-app-structure-and-state-management-2hoku7
 
        codex/plan-flutter-app-structure-and-state-management-zey9lz
+        main
         main
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+      codex/plan-flutter-app-structure-and-state-management-hl9uva
+import '../../../domain/models/work_entry.dart';
+import '../../../core/utils/pay_calculator.dart';
+import '../../entries/providers/work_entry_providers.dart';
+import '../providers/selected_date_provider.dart';
+import '../../settings/providers/settings_providers.dart';
+import 'work_hour_dialog.dart';
+
 
        codex/plan-flutter-app-structure-and-state-management-2hoku7
 import '../../../domain/models/work_entry.dart';
@@ -45,6 +57,7 @@ import 'work_hour_dialog.dart';
         main
         main
         main
+        main
 class OverviewPage extends ConsumerWidget {
   const OverviewPage({super.key});
 
@@ -52,6 +65,10 @@ class OverviewPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedDate = ref.watch(selectedDateProvider);
     final entriesAsync = ref.watch(workEntriesProvider);
+     codex/plan-flutter-app-structure-and-state-management-hl9uva
+    final paySettingsAsync = ref.watch(paySettingsProvider);
+
+       main
     final localizations = MaterialLocalizations.of(context);
 
     return Scaffold(
@@ -74,6 +91,39 @@ class OverviewPage extends ConsumerWidget {
           ),
         ],
       ),
+       codex/plan-flutter-app-structure-and-state-management-hl9uva
+      body: paySettingsAsync.when(
+        data: (paySettings) => entriesAsync.when(
+          data: (entries) {
+            final payCalculator = PayCalculator(paySettings);
+            final monthEntries = entries
+                .where(
+                  (entry) =>
+                      entry.date.year == selectedDate.year &&
+                      entry.date.month == selectedDate.month,
+                )
+                .toList();
+            final monthTotalHours = monthEntries.fold<double>(
+              0,
+              (sum, entry) => sum + entry.workedDuration.inMinutes / 60,
+            );
+            final monthDaytime = monthEntries.fold<double>(
+              0,
+              (sum, entry) => sum + entry.daytimeHours,
+            );
+            final monthOvertime = monthEntries.fold<double>(
+              0,
+              (sum, entry) => sum + entry.overtimeHours,
+            );
+            final monthPay = payCalculator.totalForEntries(monthEntries);
+
+            final filtered = entries
+                .where((entry) => WorkEntry.isSameDay(entry.date, selectedDate))
+                .toList()
+              ..sort((a, b) => a.startTime.compareTo(b.startTime));
+            final dayPay = payCalculator.totalForEntries(filtered);
+
+
       body: entriesAsync.when(
         data: (entries) {
         codex/plan-flutter-app-structure-and-state-management-2hoku7
@@ -114,6 +164,7 @@ class OverviewPage extends ConsumerWidget {
 
        codex/plan-flutter-app-structure-and-state-management-zey9lz
           main
+         main
           return Column(
             children: [
               Padding(
@@ -164,12 +215,30 @@ class OverviewPage extends ConsumerWidget {
                         Text('Total: ${monthTotalHours.toStringAsFixed(2)} h'),
                         Text('Daytime: ${monthDaytime.toStringAsFixed(2)} h'),
                         Text('Overtime: ${monthOvertime.toStringAsFixed(2)} h'),
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+                        Text('Pay (ISK): ${monthPay.toStringAsFixed(0)}'),
+
+      main
                       ],
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 8),
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Day pay (ISK): ${dayPay.toStringAsFixed(0)}',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+
+        main
               Expanded(
                 child: filtered.isEmpty
                     ? const Center(
@@ -188,6 +257,10 @@ class OverviewPage extends ConsumerWidget {
                             alwaysUse24HourFormat: true,
                           );
                           final total = entry.workedDuration.inMinutes / 60;
+       codex/plan-flutter-app-structure-and-state-management-hl9uva
+                          final pay = payCalculator.totalForEntry(entry);
+
+      main
 
                           return ListTile(
                             title: Text('$start - $end'),
@@ -200,6 +273,10 @@ class OverviewPage extends ConsumerWidget {
                                 Text(
                                   'Daytime: ${entry.daytimeHours.toStringAsFixed(2)} h • Overtime: ${entry.overtimeHours.toStringAsFixed(2)} h',
                                 ),
+       codex/plan-flutter-app-structure-and-state-management-hl9uva
+                                Text('Pay (ISK): ${pay.toStringAsFixed(0)}'),
+   
+       main
                                 if ((entry.note ?? '').isNotEmpty) Text(entry.note!),
                               ],
                             ),
@@ -218,6 +295,20 @@ class OverviewPage extends ConsumerWidget {
                       ),
               ),
             ],
+     codex/plan-flutter-app-structure-and-state-management-hl9uva
+          );
+          },
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stack) => Center(
+            child: Text('Error loading entries: $error'),
+          ),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(
+          child: Text('Error loading pay settings: $error'),
+        ),
+      ),
+
         codex/plan-flutter-app-structure-and-state-management-2hoku7
 
 
@@ -298,6 +389,7 @@ class OverviewPage extends ConsumerWidget {
         main
         main
         main
+        main
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         label: const Text('Add entry'),
@@ -308,6 +400,8 @@ class OverviewPage extends ConsumerWidget {
           ),
         ),
       ),
+        codex/plan-flutter-app-structure-and-state-management-hl9uva
+
         codex/plan-flutter-app-structure-and-state-management-2hoku7
 
         codex/plan-flutter-app-structure-and-state-management-zey9lz
@@ -326,6 +420,7 @@ class OverviewPage extends StatelessWidget {
       child: Text('Overview - Calendar and logs coming soon'),
       main
        main
+        main
         main
         main
         main
